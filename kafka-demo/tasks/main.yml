@@ -1,0 +1,11 @@
+---
+# tasks file for kafka
+- include : env.yml
+- include : kafka.yml
+- include : zookeeper.yml
+
+  
+  
+  
+
+

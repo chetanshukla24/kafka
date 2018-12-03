@@ -1,0 +1,26 @@
+---
+#- name: Configuring kafka 
+ # hosts: kafka 
+ # tasks: 
+  #- name: "Create kafka directory"
+  #  file:
+  #    path: /var/lib/kafka/myid
+  #    owner: root
+ #     mode: 0755
+#    tags: kafka_config
+
+
+  - name: setting up kafka configuration
+    hosts: kafka
+    become: true
+    become_method: sudo 
+    template:
+      src:  "{{item.src}}"
+      dest: "{{item.dest}}"
+      owner: root
+      group: root
+      mode: 0655
+    with_items:
+    - { src: 'server.properties.j2',dest: '/etc/kafka/server.properties'}
+    - { src: 'meta.properties.j2',dest: '/var/lib/kafka/meta.properties'}
+    tags: kafka_config
